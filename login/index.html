@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IMS — Sign In</title>
+<link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     LEFT — BRANDING PANEL
+════════════════════════════════════════ -->
+<div class="brand-panel">
+
+  <!-- Top: Logo -->
+  <div class="logo">
+    <div class="logo-box">IMS</div>
+    <div class="logo-text"><span>Inventory</span> Pro</div>
+  </div>
+
+  <!-- Middle: Hero copy -->
+  <div class="brand-hero">
+    <h1>Manage your<br>inventory <span>smarter.</span></h1>
+    <p>
+      A complete enterprise-grade platform for products,
+      warehouses, orders, suppliers and reporting — all in one place.
+    </p>
+  </div>
+
+  <!-- Bottom: Features -->
+  <div class="feature-list">
+    <div class="feature-item">
+      <span class="feature-dot"></span>
+      Real-time stock tracking across warehouses
+    </div>
+    <div class="feature-item">
+      <span class="feature-dot"></span>
+      Purchase & sales order workflows
+    </div>
+    <div class="feature-item">
+      <span class="feature-dot"></span>
+      Role-based access control
+    </div>
+    <div class="feature-item">
+      <span class="feature-dot"></span>
+      Reports, audit trail & analytics
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════
+     RIGHT — FORM PANEL
+════════════════════════════════════════ -->
+<div class="form-panel">
+  <div class="login-card">
+
+    <!-- Header -->
+    <h2>Welcome back</h2>
+    <p class="subtitle">Sign in to your account to continue</p>
+
+    <!-- Role selector — purely UI, no backend yet -->
+    <div class="role-select" id="role-select">
+      <button class="role-badge active" onclick="selectRole(this)">Super Admin</button>
+      <button class="role-badge" onclick="selectRole(this)">Inventory Manager</button>
+      <button class="role-badge" onclick="selectRole(this)">Sales Staff</button>
+      <button class="role-badge" onclick="selectRole(this)">Viewer</button>
+    </div>
+
+    <!-- Form -->
+    <form id="login-form" onsubmit="handleLogin(event)" novalidate>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="input-wrap">
+          <!-- Mail icon -->
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <input
+            type="email"
+            id="email"
+            placeholder="admin@example.com"
+            autocomplete="email"
+            required
+          >
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrap">
+          <!-- Lock icon -->
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          >
+          <!-- Show/hide toggle -->
+          <button type="button" class="pw-toggle" onclick="togglePassword()" title="Show/hide password">
+            <!-- Eye icon — swapped to eye-off when visible -->
+            <svg id="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Remember me + forgot -->
+      <div class="form-extras">
+        <label class="checkbox-label">
+          <input type="checkbox" id="remember">
+          Remember me
+        </label>
+        <a href="#" class="forgot-link" onclick="showForgot(event)">Forgot password?</a>
+      </div>
+
+      <!-- Error message — hidden by default, shown on bad credentials -->
+      <div class="error-msg" id="error-msg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span id="error-text">Invalid email or password. Please try again.</span>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-login" id="login-btn">
+        <div class="spinner"></div>
+        <span class="btn-text">Sign In</span>
+      </button>
+
+    </form>
+
+    <div class="divider">or</div>
+
+    <div class="guest-row">
+      Don't have an account? <a href="#" onclick="showToast('Contact your system administrator to get access.')">Request access</a>
+    </div>
+
+    <div class="login-footer">
+      IMS Enterprise Corp. &nbsp;·&nbsp; v2.0.0 &nbsp;·&nbsp; &copy; 2026
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div id="toast">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="10"/>
+    <line x1="12" y1="8" x2="12" y2="12"/>
+    <line x1="12" y1="16" x2="12.01" y2="16"/>
+  </svg>
+  <span id="toast-msg">Message here</span>
+</div>
+
+<script type="module" src="login.js"></script>
+
+</body>
+</html>
