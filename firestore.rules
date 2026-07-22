@@ -1,0 +1,258 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Data model: each product has immutable ownerId/createdAt, mutable
+    // updatedAt, and the inventory fields validated below.
+    // Keep this email synchronized with public/main/js/access.js.
+    function isAuthenticated() { return request.auth != null; }
+    function isAdmin() {
+      return isAuthenticated() &&
+        request.auth.token.email == 'chrisdiorsystem@gmail.com';
+    }
+    function isOwner(ownerId) { return isAdmin() && request.auth.uid == ownerId; }
+    function isDocOwner() { return isOwner(resource.data.ownerId); }
+    function uidUnchanged() { return isAdmin() && request.resource.data.ownerId == request.auth.uid; }
+    function uidNotModified() { return request.resource.data.ownerId == resource.data.ownerId; }
+    function validText(value, min, max) {
+      return value is string && value.size() >= min && value.size() <= max;
+    }
+    function isRecent(value) {
+      return value is timestamp &&
+        value > request.time - duration.value(5, 'm') &&
+        value <= request.time;
+    }
+    function isValidProduct(data) {
+      return data.keys().hasAll([
+          'name', 'sku', 'cat', 'stock', 'price', 'reorder', 'warehouse',
+          'supplier', 'description', 'status', 'ownerId', 'createdAt', 'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'name', 'sku', 'cat', 'stock', 'price', 'reorder', 'warehouse',
+          'supplier', 'description', 'status', 'ownerId', 'createdAt', 'updatedAt'
+        ]) &&
+        validText(data.name, 1, 120) &&
+        validText(data.sku, 1, 60) &&
+        validText(data.cat, 1, 60) &&
+        data.stock is int && data.stock >= 0 && data.stock <= 100000000 &&
+        data.price is number && data.price >= 0 && data.price <= 1000000000 &&
+        data.reorder is int && data.reorder >= 0 && data.reorder <= 100000000 &&
+        validText(data.warehouse, 1, 120) &&
+        validText(data.supplier, 0, 120) &&
+        validText(data.description, 0, 2000) &&
+        data.status in ['In Stock', 'Low Stock', 'Out of Stock'] &&
+        validText(data.ownerId, 1, 128) &&
+        data.createdAt is timestamp &&
+        data.updatedAt is timestamp;
+    }
+    function isValidSalesOrder(data) {
+      return data.keys().hasAll([
+          'ownerId', 'orderNumber', 'customer', 'itemCount', 'total',
+          'status', 'createdAt', 'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'ownerId', 'orderNumber', 'customer', 'itemCount', 'total',
+          'status', 'createdAt', 'updatedAt'
+        ]) &&
+        validText(data.ownerId, 1, 128) &&
+        validText(data.orderNumber, 4, 30) &&
+        validText(data.customer, 1, 120) &&
+        data.itemCount is int && data.itemCount >= 1 && data.itemCount <= 10000 &&
+        data.total is number && data.total >= 0 && data.total <= 1000000000 &&
+        data.status in ['Pending', 'Processing', 'Delivered', 'Completed'] &&
+        data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+    function validSalesTransition() {
+      return request.resource.data.status == resource.data.status ||
+        (resource.data.status == 'Pending' && request.resource.data.status == 'Processing') ||
+        (resource.data.status == 'Processing' && request.resource.data.status == 'Delivered') ||
+        (resource.data.status == 'Delivered' && request.resource.data.status == 'Completed');
+    }
+    function isValidOrderItem(item) {
+      return item is map &&
+        item.keys().hasAll(['name', 'quantity', 'unitCost']) &&
+        item.keys().hasOnly(['name', 'quantity', 'unitCost']) &&
+        validText(item.name, 1, 120) &&
+        item.quantity is int && item.quantity >= 1 && item.quantity <= 1000000 &&
+        item.unitCost is number && item.unitCost >= 0 && item.unitCost <= 1000000000;
+    }
+    function isValidItems(items) {
+      return items is list && items.size() >= 1 && items.size() <= 10 &&
+        isValidOrderItem(items[0]) &&
+        (items.size() < 2 || isValidOrderItem(items[1])) &&
+        (items.size() < 3 || isValidOrderItem(items[2])) &&
+        (items.size() < 4 || isValidOrderItem(items[3])) &&
+        (items.size() < 5 || isValidOrderItem(items[4])) &&
+        (items.size() < 6 || isValidOrderItem(items[5])) &&
+        (items.size() < 7 || isValidOrderItem(items[6])) &&
+        (items.size() < 8 || isValidOrderItem(items[7])) &&
+        (items.size() < 9 || isValidOrderItem(items[8])) &&
+        (items.size() < 10 || isValidOrderItem(items[9]));
+    }
+    function isValidPurchaseOrder(data) {
+      return data.keys().hasAll([
+          'ownerId', 'orderNumber', 'supplier', 'expectedDate', 'warehouse',
+          'priority', 'notes', 'items', 'itemCount', 'total', 'status',
+          'createdAt', 'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'ownerId', 'orderNumber', 'supplier', 'expectedDate', 'warehouse',
+          'priority', 'notes', 'items', 'itemCount', 'total', 'status',
+          'createdAt', 'updatedAt'
+        ]) &&
+        validText(data.ownerId, 1, 128) && validText(data.orderNumber, 4, 30) &&
+        validText(data.supplier, 1, 120) && validText(data.expectedDate, 0, 10) &&
+        validText(data.warehouse, 1, 120) &&
+        data.priority in ['Low', 'Normal', 'Urgent'] &&
+        validText(data.notes, 0, 2000) && isValidItems(data.items) &&
+        data.itemCount is int && data.itemCount == data.items.size() &&
+        data.total is number && data.total >= 0 && data.total <= 1000000000000 &&
+        data.status in ['Draft', 'Pending Approval'] &&
+        data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+    function isValidSupplier(data) {
+      return data.keys().hasAll(['ownerId','name','contact','phone','rating','orders','spent','status','createdAt','updatedAt']) &&
+        data.keys().hasOnly(['ownerId','name','contact','phone','rating','orders','spent','status','createdAt','updatedAt']) &&
+        validText(data.ownerId,1,128) && validText(data.name,1,120) &&
+        validText(data.contact,3,254) && validText(data.phone,0,30) &&
+        data.rating is number && data.rating >= 0 && data.rating <= 5 &&
+        data.orders is int && data.orders >= 0 && data.orders <= 1000000 &&
+        data.spent is number && data.spent >= 0 && data.spent <= 1000000000000 &&
+        data.status in ['Active','Inactive'] && data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+    function isValidCustomer(data) {
+      return data.keys().hasAll(['ownerId','name','email','phone','totalOrders','totalSpent','balance','status','createdAt','updatedAt']) &&
+        data.keys().hasOnly(['ownerId','name','email','phone','totalOrders','totalSpent','balance','status','createdAt','updatedAt']) &&
+        validText(data.ownerId,1,128) && validText(data.name,1,120) &&
+        validText(data.email,3,254) && validText(data.phone,0,30) &&
+        data.totalOrders is int && data.totalOrders >= 0 && data.totalOrders <= 1000000 &&
+        data.totalSpent is number && data.totalSpent >= 0 && data.totalSpent <= 1000000000000 &&
+        data.balance is number && data.balance >= 0 && data.balance <= 1000000000000 &&
+        data.status in ['Active','Inactive'] && data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+    function isValidAdjustment(data) {
+      return data.keys().hasAll(['ownerId','reference','productId','productName','type','quantityChange','reason','adjustedBy','createdAt','updatedAt']) &&
+        data.keys().hasOnly(['ownerId','reference','productId','productName','type','quantityChange','reason','adjustedBy','createdAt','updatedAt']) &&
+        validText(data.ownerId,1,128) && validText(data.reference,4,30) &&
+        validText(data.productId,1,128) && validText(data.productName,1,120) &&
+        data.type in ['Add','Deduct'] && data.quantityChange is int &&
+        data.quantityChange >= -1000000 && data.quantityChange <= 1000000 && data.quantityChange != 0 &&
+        validText(data.reason,1,500) && validText(data.adjustedBy,1,254) &&
+        data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+    function isValidInvitation(data) {
+      return data.keys().hasAll(['ownerId','email','role','status','createdAt','updatedAt']) &&
+        data.keys().hasOnly(['ownerId','email','role','status','createdAt','updatedAt']) &&
+        validText(data.ownerId,1,128) && validText(data.email,3,254) &&
+        data.role in ['Viewer','Sales Staff','Warehouse Staff','Inventory Manager'] &&
+        data.status == 'Pending' && data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+    function isValidWarehouse(data) {
+      return data.keys().hasAll([
+          'ownerId', 'name', 'code', 'address', 'manager', 'capacity',
+          'status', 'createdAt', 'updatedAt'
+        ]) &&
+        data.keys().hasOnly([
+          'ownerId', 'name', 'code', 'address', 'manager', 'capacity',
+          'status', 'createdAt', 'updatedAt'
+        ]) &&
+        validText(data.ownerId, 1, 128) &&
+        validText(data.name, 1, 120) &&
+        validText(data.code, 1, 30) &&
+        validText(data.address, 1, 300) &&
+        validText(data.manager, 0, 120) &&
+        data.capacity is int && data.capacity >= 1 && data.capacity <= 1000000000 &&
+        data.status in ['Active', 'Inactive'] &&
+        data.createdAt is timestamp &&
+        data.updatedAt is timestamp;
+    }
+
+    match /products/{productId} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && uidUnchanged() &&
+        isRecent(request.resource.data.createdAt) &&
+        isRecent(request.resource.data.updatedAt) &&
+        isValidProduct(request.resource.data);
+      allow update: if isDocOwner() && uidNotModified() &&
+        request.resource.data.createdAt == resource.data.createdAt &&
+        isRecent(request.resource.data.updatedAt) &&
+        isValidProduct(request.resource.data);
+      allow delete: if isDocOwner();
+    }
+
+    match /warehouses/{warehouseId} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && uidUnchanged() &&
+        isRecent(request.resource.data.createdAt) &&
+        isRecent(request.resource.data.updatedAt) &&
+        isValidWarehouse(request.resource.data);
+      allow update: if isDocOwner() && uidNotModified() &&
+        request.resource.data.createdAt == resource.data.createdAt &&
+        isRecent(request.resource.data.updatedAt) &&
+        isValidWarehouse(request.resource.data);
+    }
+
+    match /salesOrders/{orderId} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && uidUnchanged() &&
+        isRecent(request.resource.data.createdAt) &&
+        isRecent(request.resource.data.updatedAt) &&
+        isValidSalesOrder(request.resource.data);
+      allow update: if isDocOwner() && uidNotModified() &&
+        request.resource.data.createdAt == resource.data.createdAt &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'updatedAt']) &&
+        validSalesTransition() && isRecent(request.resource.data.updatedAt) &&
+        isValidSalesOrder(request.resource.data);
+      allow delete: if isDocOwner();
+    }
+
+    match /purchaseOrders/{orderId} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && uidUnchanged() &&
+        isRecent(request.resource.data.createdAt) &&
+        isRecent(request.resource.data.updatedAt) &&
+        isValidPurchaseOrder(request.resource.data);
+      allow delete: if isDocOwner();
+    }
+
+    match /suppliers/{supplierId} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && uidUnchanged() &&
+        isRecent(request.resource.data.createdAt) && isRecent(request.resource.data.updatedAt) &&
+        isValidSupplier(request.resource.data);
+      allow update: if isDocOwner() && uidNotModified() &&
+        request.resource.data.createdAt == resource.data.createdAt &&
+        isRecent(request.resource.data.updatedAt) && isValidSupplier(request.resource.data);
+      allow delete: if isDocOwner();
+    }
+
+    match /customers/{customerId} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && uidUnchanged() &&
+        isRecent(request.resource.data.createdAt) && isRecent(request.resource.data.updatedAt) &&
+        isValidCustomer(request.resource.data);
+      allow update: if isDocOwner() && uidNotModified() &&
+        request.resource.data.createdAt == resource.data.createdAt &&
+        isRecent(request.resource.data.updatedAt) && isValidCustomer(request.resource.data);
+      allow delete: if isDocOwner();
+    }
+
+    match /stockAdjustments/{adjustmentId} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && uidUnchanged() &&
+        isRecent(request.resource.data.createdAt) && isRecent(request.resource.data.updatedAt) &&
+        isValidAdjustment(request.resource.data);
+    }
+
+    match /userInvitations/{invitationId} {
+      allow read: if isDocOwner();
+      allow create: if isAuthenticated() && uidUnchanged() &&
+        isRecent(request.resource.data.createdAt) && isRecent(request.resource.data.updatedAt) &&
+        isValidInvitation(request.resource.data);
+      allow delete: if isDocOwner();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
