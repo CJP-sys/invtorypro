@@ -1,0 +1,406 @@
+:root {
+  --bg-dark:     #1a1718;
+  --bg-card:     #2a2527;
+  --bg-surface:  #333031;
+  --bg-input:    #1a1718;
+  --accent:      #aa0000;
+  --accent-hover:#cc1111;
+  --accent-light: rgba(170,0,0,0.12);
+  --text-primary: #f0eded;
+  --text-secondary: #b0a8a8;
+  --text-muted:  #7a7070;
+  --border:      rgba(255,255,255,0.08);
+  --danger:      #e74c3c;
+  --success:     #2ecc71;
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: grid;
+  /* Left panel (branding) | Right panel (form) */
+  grid-template-columns: 1fr 1fr;
+}
+
+/* ─── LEFT PANEL — BRANDING ─── */
+.brand-panel {
+  position: relative;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px;
+  overflow: hidden;
+}
+
+/* Decorative background circles — purely visual, no interaction */
+.brand-panel::before,
+.brand-panel::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  /* We use box-shadow trick so they're one element each */
+}
+.brand-panel::before {
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(170,0,0,0.18) 0%, transparent 70%);
+  top: -120px;
+  left: -120px;
+}
+.brand-panel::after {
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, rgba(170,0,0,0.10) 0%, transparent 70%);
+  bottom: -80px;
+  right: -80px;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative; /* sit above ::before pseudo */
+  z-index: 1;
+}
+.logo-box {
+  width: 44px;
+  height: 44px;
+  background: var(--accent);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 15px;
+  color: #fff;
+  letter-spacing: 0.5px;
+  /* Subtle inner glow to match the red theme */
+  box-shadow: 0 0 24px rgba(170,0,0,0.5);
+}
+.logo-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.logo-text span { color: var(--accent); }
+
+/* Center hero text */
+.brand-hero {
+  position: relative;
+  z-index: 1;
+}
+.brand-hero h1 {
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+.brand-hero h1 span {
+  color: var(--accent);
+}
+.brand-hero p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 360px;
+}
+
+/* Feature pills */
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.feature-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ─── RIGHT PANEL — FORM ─── */
+.form-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Header */
+.login-card h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.login-card .subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 36px;
+}
+
+/* Role badge row */
+.role-select {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.role-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+.role-badge:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+.role-badge.active {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Form groups */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+/* Input wrapper — holds the icon + input + optional toggle */
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  /* vertically centered by flexbox on parent */
+}
+.form-group input {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 13px 14px 13px 42px; /* left padding makes room for icon */
+  color: var(--text-primary);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+.form-group input::placeholder { color: var(--text-muted); }
+.form-group input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(170,0,0,0.15);
+}
+/* Password toggle button */
+.pw-toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+.pw-toggle:hover { color: var(--text-primary); }
+.pw-toggle svg { width: 16px; height: 16px; }
+
+/* Remember + Forgot row */
+.form-extras {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+.checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.forgot-link {
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.forgot-link:hover { color: var(--accent-hover); text-decoration: underline; }
+
+/* Error message */
+.error-msg {
+  display: none; /* shown via JS */
+  align-items: center;
+  gap: 8px;
+  background: rgba(231,76,60,0.1);
+  border: 1px solid rgba(231,76,60,0.3);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--danger);
+  margin-bottom: 18px;
+}
+.error-msg.show { display: flex; }
+.error-msg svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+/* Submit button */
+.btn-login {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 0.3px;
+}
+.btn-login:hover { background: var(--accent-hover); }
+.btn-login:active { transform: scale(0.99); }
+.btn-login:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Spinner inside button */
+.spinner {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+.btn-login.loading .spinner { display: block; }
+.btn-login.loading .btn-text { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Guest access row */
+.guest-row {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.guest-row a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+.guest-row a:hover { text-decoration: underline; }
+
+/* Footer */
+.login-footer {
+  margin-top: 36px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ─── TOAST ─── */
+#toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--success);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 14px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  transform: translateX(120%);
+  transition: transform 0.3s ease;
+  z-index: 999;
+}
+#toast.show { transform: translateX(0); }
+#toast svg { color: var(--success); width: 18px; height: 18px; }
+
+/* ─── RESPONSIVE — collapses to single column on mobile ─── */
+@media (max-width: 768px) {
+  body { grid-template-columns: 1fr; }
+  .brand-panel { display: none; } /* hide branding on small screens */
+  .form-panel { padding: 40px 24px; }
+}

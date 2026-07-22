@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel ="icon" type="svg" href="svg/cj-svg.svg">
+<link rel="stylesheet" href="style.css">
+<title>Inventory Management System</title>
+
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">IMS</div>
+    <div class="logo-text"><span>Inventory</span> Pro</div>
+  </div>
+  <nav>
+    <div class="nav-group">
+      <div class="nav-label">Overview</div>
+      <div class="nav-item active" data-page="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        <span class="nav-text">Dashboard</span>
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Inventory</div>
+      <div class="nav-item" data-page="products">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        <span class="nav-text">Products</span>
+      </div>
+      <div class="nav-item" data-page="warehouses">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+        <span class="nav-text">Warehouses</span>
+      </div>
+      <div class="nav-item" data-page="adjustments">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span class="nav-text">Adjustments</span>
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Transactions</div>
+      <div class="nav-item" data-page="purchases">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="nav-text">Purchase Orders</span>
+        <span class="nav-badge">3</span>
+      </div>
+      <div class="nav-item" data-page="sales">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="nav-text">Sales Orders</span>
+        <span class="nav-badge">7</span>
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Relationships</div>
+      <div class="nav-item" data-page="suppliers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16,8 20,8 23,11 23,16 16,16 16,8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <span class="nav-text">Suppliers</span>
+      </div>
+      <div class="nav-item" data-page="customers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span class="nav-text">Customers</span>
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Intelligence</div>
+      <div class="nav-item" data-page="reports">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span class="nav-text">Reports & Analytics</span>
+      </div>
+      <div class="nav-item" data-page="audit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span class="nav-text">Audit Trail</span>
+      </div>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Administration</div>
+      <div class="nav-item" data-page="users">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span class="nav-text">User Management</span>
+      </div>
+      <div class="nav-item" data-page="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span class="nav-text">Settings</span>
+      </div>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="user-chip">
+      <div class="user-avatar">SA</div>
+      <div class="user-info">
+        <div class="user-name">Super Admin</div>
+        <div class="user-role">Administrator</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div id="main">
+  <!-- TOPBAR -->
+  <div id="topbar">
+    <button id="toggle-sidebar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div>
+      <div class="topbar-title" id="page-title">Dashboard</div>
+      <div class="topbar-subtitle" id="page-subtitle">Welcome back, Super Admin</div>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" placeholder="Global search..." id="global-search">
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="notif-btn" title="Notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notif-dot"></span>
+      </button>
+      <button class="icon-btn" title="Dark mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div id="content">
+
+    <!-- DASHBOARD PAGE -->
+    <div class="page active" id="page-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card accent" data-page="products">
+          <div class="stat-icon accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+          <div class="stat-label">Total Products</div>
+          <div class="stat-value" id="dashboard-total-products">0</div>
+          <div class="stat-change up">Live from your inventory</div>
+        </div>
+        <div class="stat-card warning" data-page="products">
+          <div class="stat-icon warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div class="stat-label">Low Stock</div>
+          <div class="stat-value" id="dashboard-low-stock">0</div>
+          <div class="stat-change down">Needs restock soon</div>
+        </div>
+        <div class="stat-card danger" data-page="products">
+          <div class="stat-icon danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+          <div class="stat-label">Out of Stock</div>
+          <div class="stat-value" id="dashboard-out-of-stock">0</div>
+          <div class="stat-change down">Immediate attention needed</div>
+        </div>
+        <div class="stat-card success" data-page="reports">
+          <div class="stat-icon success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="stat-label">Inventory Value</div>
+          <div class="stat-value" id="dashboard-inventory-value">₱0</div>
+          <div class="stat-change up">Based on current stock</div>
+        </div>
+        <div class="stat-card info" data-page="suppliers">
+          <div class="stat-icon info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16,8 20,8 23,11 23,16 16,16 16,8"/></svg></div>
+          <div class="stat-label">Active Suppliers</div>
+          <div class="stat-value">38</div>
+          <div class="stat-change up">↑ 2 new this month</div>
+        </div>
+        <div class="stat-card success" data-page="sales">
+          <div class="stat-icon success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+          <div class="stat-label">Sales Orders</div>
+          <div class="stat-value">163</div>
+          <div class="stat-change up">↑ 18% this month</div>
+        </div>
+        <div class="stat-card accent" data-page="purchases">
+          <div class="stat-icon accent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/></svg></div>
+          <div class="stat-label">Purchase Orders</div>
+          <div class="stat-value">24</div>
+          <div class="stat-change up">3 pending approval</div>
+        </div>
+        <div class="stat-card success" data-page="reports">
+          <div class="stat-icon success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+          <div class="stat-label">Monthly Revenue</div>
+          <div class="stat-value">₱486K</div>
+          <div class="stat-change up">↑ 11.4% vs last month</div>
+        </div>
+      </div>
+
+      <div class="grid-2-1">
+        <div class="card">
+          <div class="section-header">
+            <div>
+              <div class="section-title">Sales Trend</div>
+              <div class="section-desc">Monthly revenue & orders — last 6 months</div>
+            </div>
+            <select id="sales-range-select" style="background:var(--bg-surface);border:1px solid var(--border);color:var(--text-primary);border-radius:6px;padding:6px 10px;font-size:12px;outline:none">
+              <option>Last 6 months</option>
+              <option>Last 12 months</option>
+              <option>This year</option>
+            </select>
+          </div>
+          <div class="chart-legend">
+            <span><span class="legend-dot" style="background:#aa0000"></span>Revenue (₱K)</span>
+            <span><span class="legend-dot" style="background:#3498db;border-radius:50%"></span>Orders</span>
+          </div>
+          <div class="chart-actions" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:12px">
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button id="sales-reset-zoom" class="btn btn-ghost btn-xs">Reset</button>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button id="toggle-revenue" class="btn btn-secondary btn-xs active">Revenue</button>
+              <button id="toggle-orders" class="btn btn-secondary btn-xs active">Orders</button>
+            </div>
+            <div id="sales-chart-info" style="margin-left:auto;font-size:13px;color:var(--text-muted);min-width:220px">Click a revenue bar or order point to see details here.</div>
+          </div>
+          <div class="chart-wrap tall">
+            <canvas id="salesChart" role="img" aria-label="Sales trend bar chart showing monthly revenue and order counts over 6 months">Monthly sales data shown above</canvas>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-header">
+            <div class="section-title">Inventory Health</div>
+          </div>
+          <div class="chart-wrap" style="height:180px">
+            <canvas id="stockDonut" role="img" aria-label="Donut chart showing inventory stock health: in stock, low stock, and out of stock proportions">Stock health distribution</canvas>
+          </div>
+          <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px">
+            <div class="flex-between"><span style="font-size:13px;color:var(--text-secondary)">In Stock</span><span id="dashboard-in-stock-count" style="font-size:13px;font-weight:600;color:var(--success)">0 items</span></div>
+            <div class="flex-between"><span style="font-size:13px;color:var(--text-secondary)">Low Stock</span><span id="dashboard-low-stock-count" style="font-size:13px;font-weight:600;color:var(--warning)">0 items</span></div>
+            <div class="flex-between"><span style="font-size:13px;color:var(--text-secondary)">Out of Stock</span><span id="dashboard-out-of-stock-count" style="font-size:13px;font-weight:600;color:var(--danger)">0 items</span></div>
+          </div>
+          <div style="margin-top:14px">
+            <div style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:8px">Current Products</div>
+            <div id="dashboard-product-list" style="display:flex;flex-direction:column;gap:8px"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2 mt-20">
+        <div class="card">
+          <div class="section-header"><div class="section-title">Top Selling Products</div><button class="btn btn-ghost btn-sm" onclick="navigate('products')">View all</button></div>
+          <table>
+            <thead><tr><th>Product</th><th>Category</th><th>Sold</th><th>Revenue</th></tr></thead>
+            <tbody>
+              <tr><td><div style="font-weight:500">Samsung Galaxy A55</div><div style="font-size:11px;color:var(--text-muted)">SKU-0041</div></td><td><span class="badge info">Electronics</span></td><td>142</td><td style="color:var(--success)">₱568,000</td></tr>
+              <tr><td><div style="font-weight:500">Mechanical Keyboard K7</div><div style="font-size:11px;color:var(--text-muted)">SKU-0089</div></td><td><span class="badge neutral">Peripherals</span></td><td>98</td><td style="color:var(--success)">₱294,000</td></tr>
+              <tr><td><div style="font-weight:500">USB-C Hub Pro 7-in-1</div><div style="font-size:11px;color:var(--text-muted)">SKU-0112</div></td><td><span class="badge neutral">Accessories</span></td><td>87</td><td style="color:var(--success)">₱130,500</td></tr>
+              <tr><td><div style="font-weight:500">Wireless Earbuds X3</div><div style="font-size:11px;color:var(--text-muted)">SKU-0067</div></td><td><span class="badge info">Electronics</span></td><td>76</td><td style="color:var(--success)">₱152,000</td></tr>
+              <tr><td><div style="font-weight:500">Ergonomic Mouse M200</div><div style="font-size:11px;color:var(--text-muted)">SKU-0095</div></td><td><span class="badge neutral">Peripherals</span></td><td>65</td><td style="color:var(--success)">₱97,500</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="section-header"><div class="section-title">Recent Activity</div><button class="btn btn-ghost btn-sm" onclick="navigate('audit')">View log</button></div>
+          <div id="activity-feed">
+            <div class="activity-item"><div class="activity-dot success"></div><div><div class="activity-text"><strong>Stock received</strong> — 200 units of Samsung Galaxy A55 from Tech Distributors PH</div><div class="activity-time">2 minutes ago · Maria Santos</div></div></div>
+            <div class="activity-item"><div class="activity-dot warning"></div><div><div class="activity-text"><strong>Low stock alert</strong> — Wireless Earbuds X3 dropped to 8 units</div><div class="activity-time">18 minutes ago · System</div></div></div>
+            <div class="activity-item"><div class="activity-dot info"></div><div><div class="activity-text"><strong>Sales order SO-2847</strong> created for customer Juan Dela Cruz</div><div class="activity-time">34 minutes ago · Carlo Reyes</div></div></div>
+            <div class="activity-item"><div class="activity-dot accent"></div><div><div class="activity-text"><strong>Purchase order PO-1093</strong> approved by Admin</div><div class="activity-time">1 hour ago · Admin</div></div></div>
+            <div class="activity-item"><div class="activity-dot danger"></div><div><div class="activity-text"><strong>Out of stock</strong> — Laptop Stand LS-Pro is now unavailable</div><div class="activity-time">2 hours ago · System</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-20">
+        <div class="section-header"><div class="section-title">Low Stock Alerts</div><button class="btn btn-primary btn-sm" onclick="navigate('products')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>Manage Inventory</button></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Product</th><th>SKU</th><th>Current Stock</th><th>Reorder Point</th><th>Supplier</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Wireless Earbuds X3</strong></td><td class="text-muted">SKU-0067</td><td>8</td><td>20</td><td>AudioTech PH</td><td><span class="badge warning">Low Stock</span></td><td><button class="btn btn-primary btn-xs" onclick="openPOModal()">Reorder</button></td></tr>
+              <tr><td><strong>HDMI Cable 2m</strong></td><td class="text-muted">SKU-0204</td><td>5</td><td>15</td><td>CablePro Inc</td><td><span class="badge warning">Low Stock</span></td><td><button class="btn btn-primary btn-xs" onclick="openPOModal()">Reorder</button></td></tr>
+              <tr><td><strong>Screen Cleaner Kit</strong></td><td class="text-muted">SKU-0311</td><td>3</td><td>10</td><td>CleanTech</td><td><span class="badge danger">Critical</span></td><td><button class="btn btn-primary btn-xs" onclick="openPOModal()">Reorder</button></td></tr>
+              <tr><td><strong>Laptop Stand LS-Pro</strong></td><td class="text-muted">SKU-0188</td><td>0</td><td>8</td><td>DeskPro Co.</td><td><span class="badge danger">Out of Stock</span></td><td><button class="btn btn-primary btn-xs" onclick="openPOModal()">Reorder</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS PAGE -->
+    <div class="page" id="page-products">
+      <div class="filter-bar">
+        <input type="text" placeholder="Search products..." id="product-search">
+        <select id="category-filter"><option value="">All Categories</option><option>Electronics</option><option>Peripherals</option><option>Accessories</option><option>Office Supplies</option></select>
+        <select id="status-filter"><option value="">All Status</option><option>In Stock</option><option>Low Stock</option><option>Out of Stock</option></select>
+        <div style="margin-left:auto" class="btn-group">
+          <button id="import-btn" class="btn btn-secondary btn-sm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Import
+          </button>
+          <button id="export-btn" class="btn btn-secondary btn-sm">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export
+          </button>
+          <button class="btn btn-primary" onclick="openProductModal()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Product
+          </button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="table-wrap">
+          <table id="products-table">
+            <thead><tr><th><input type="checkbox" style="width:16px"></th><th>Product</th><th>SKU</th><th>Category</th><th>Stock</th><th>Unit Price</th><th>Warehouse</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="products-tbody"></tbody>
+          </table>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0 0;font-size:13px;color:var(--text-muted)">
+          <span id="products-count">Showing 10 of 1,284 products</span>
+          <div class="btn-group">
+            <button class="btn btn-ghost btn-sm">← Prev</button>
+            <button class="btn btn-secondary btn-sm">1</button>
+            <button class="btn btn-ghost btn-sm">2</button>
+            <button class="btn btn-ghost btn-sm">3</button>
+            <button class="btn btn-ghost btn-sm">Next →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WAREHOUSES PAGE -->
+    <div class="page" id="page-warehouses">
+      <div class="btn-group" style="margin-bottom:16px;justify-content:flex-end">
+        <button class="btn btn-primary" onclick="toast('Warehouse creation coming soon','info')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Warehouse
+        </button>
+      </div>
+      <div class="grid-3">
+        <div class="card" style="border-top:3px solid var(--accent)">
+          <div style="font-size:16px;font-weight:600;margin-bottom:6px">Main Warehouse</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">Quezon City, Metro Manila</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+            <div class="flex-between"><span class="text-muted">Total Products</span><span>842</span></div>
+            <div class="flex-between"><span class="text-muted">Capacity</span><span>68%</span></div>
+            <div class="flex-between"><span class="text-muted">Manager</span><span>Jose Reyes</span></div>
+            <div class="flex-between"><span class="text-muted">Status</span><span class="badge success">Active</span></div>
+          </div>
+          <div class="progress-bar mt-16"><div class="progress-fill warning" style="width:68%"></div></div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--info)">
+          <div style="font-size:16px;font-weight:600;margin-bottom:6px">Cebu Branch</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">Mandaue City, Cebu</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+            <div class="flex-between"><span class="text-muted">Total Products</span><span>312</span></div>
+            <div class="flex-between"><span class="text-muted">Capacity</span><span>41%</span></div>
+            <div class="flex-between"><span class="text-muted">Manager</span><span>Ana Cruz</span></div>
+            <div class="flex-between"><span class="text-muted">Status</span><span class="badge success">Active</span></div>
+          </div>
+          <div class="progress-bar mt-16"><div class="progress-fill success" style="width:41%"></div></div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--success)">
+          <div style="font-size:16px;font-weight:600;margin-bottom:6px">Davao Hub</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:12px">Davao City, Davao del Sur</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+            <div class="flex-between"><span class="text-muted">Total Products</span><span>130</span></div>
+            <div class="flex-between"><span class="text-muted">Capacity</span><span>22%</span></div>
+            <div class="flex-between"><span class="text-muted">Manager</span><span>Ben Lim</span></div>
+            <div class="flex-between"><span class="text-muted">Status</span><span class="badge success">Active</span></div>
+          </div>
+          <div class="progress-bar mt-16"><div class="progress-fill success" style="width:22%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADJUSTMENTS PAGE -->
+    <div class="page" id="page-adjustments">
+      <div class="btn-group" style="margin-bottom:16px;justify-content:flex-end">
+        <button class="btn btn-primary" onclick="toast('Adjustment form opening','info')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Adjustment
+        </button>
+      </div>
+      <div class="card">
+        <div class="section-title" style="margin-bottom:16px">Stock Adjustment History</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Ref #</th><th>Product</th><th>Type</th><th>Qty Change</th><th>Reason</th><th>Adjusted By</th><th>Date</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td class="text-accent">ADJ-0041</td><td>Samsung Galaxy A55</td><td><span class="badge success">Add</span></td><td style="color:var(--success)">+50</td><td>Stock Count Correction</td><td>Maria Santos</td><td>Jun 10, 2026</td><td><span class="badge success">Approved</span></td></tr>
+              <tr><td class="text-accent">ADJ-0040</td><td>USB-C Cable 1m</td><td><span class="badge danger">Deduct</span></td><td style="color:var(--danger)">-12</td><td>Damaged Goods</td><td>Carlo Reyes</td><td>Jun 9, 2026</td><td><span class="badge success">Approved</span></td></tr>
+              <tr><td class="text-accent">ADJ-0039</td><td>Wireless Mouse M100</td><td><span class="badge success">Add</span></td><td style="color:var(--success)">+25</td><td>Found in Stockroom</td><td>Jose Reyes</td><td>Jun 8, 2026</td><td><span class="badge warning">Pending</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PURCHASES PAGE -->
+    <div class="page" id="page-purchases">
+      <div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="stat-card accent"><div class="stat-label">Total POs</div><div class="stat-value">24</div></div>
+        <div class="stat-card warning"><div class="stat-label">Pending Approval</div><div class="stat-value">3</div></div>
+        <div class="stat-card info"><div class="stat-label">In Transit</div><div class="stat-value">8</div></div>
+        <div class="stat-card success"><div class="stat-label">Completed</div><div class="stat-value">13</div></div>
+      </div>
+      <div class="filter-bar">
+        <input type="text" placeholder="Search purchase orders...">
+        <select><option>All Status</option><option>Draft</option><option>Pending Approval</option><option>Approved</option><option>Received</option><option>Completed</option></select>
+        <div style="margin-left:auto" class="btn-group">
+          <button class="btn btn-primary" id="new-po-btn" onclick="openPOModal()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Purchase Order
+          </button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>PO Number</th><th>Supplier</th><th>Items</th><th>Total</th><th>Expected Date</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td class="text-accent"><strong>PO-1093</strong></td><td>Tech Distributors PH</td><td>5 items</td><td>₱128,500</td><td>Jun 15, 2026</td><td><span class="badge success">Approved</span></td><td><div class="btn-group"><button class="btn btn-ghost btn-xs">View</button><button class="btn btn-secondary btn-xs">Receive</button></div></td></tr>
+              <tr><td class="text-accent"><strong>PO-1092</strong></td><td>AudioTech PH</td><td>2 items</td><td>₱34,000</td><td>Jun 18, 2026</td><td><span class="badge warning">Pending Approval</span></td><td><div class="btn-group"><button class="btn btn-success btn-xs">Approve</button><button class="btn btn-danger btn-xs">Reject</button></div></td></tr>
+              <tr><td class="text-accent"><strong>PO-1091</strong></td><td>CablePro Inc</td><td>8 items</td><td>₱22,400</td><td>Jun 20, 2026</td><td><span class="badge info">In Transit</span></td><td><div class="btn-group"><button class="btn btn-ghost btn-xs">Track</button></div></td></tr>
+              <tr><td class="text-accent"><strong>PO-1090</strong></td><td>DeskPro Co.</td><td>3 items</td><td>₱89,700</td><td>Jun 25, 2026</td><td><span class="badge warning">Pending Approval</span></td><td><div class="btn-group"><button class="btn btn-success btn-xs">Approve</button><button class="btn btn-danger btn-xs">Reject</button></div></td></tr>
+              <tr><td class="text-accent"><strong>PO-1089</strong></td><td>Office Mart</td><td>12 items</td><td>₱15,600</td><td>Jun 12, 2026</td><td><span class="badge neutral">Draft</span></td><td><div class="btn-group"><button class="btn btn-primary btn-xs">Submit</button><button class="btn btn-ghost btn-xs">Edit</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SALES PAGE -->
+    <div class="page" id="page-sales">
+      <div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="stat-card accent"><div class="stat-label">Total Orders</div><div class="stat-value">163</div></div>
+        <div class="stat-card warning"><div class="stat-label">Processing</div><div class="stat-value">24</div></div>
+        <div class="stat-card info"><div class="stat-label">Out for Delivery</div><div class="stat-value">18</div></div>
+        <div class="stat-card success"><div class="stat-label">Completed</div><div class="stat-value">121</div></div>
+      </div>
+      <div class="filter-bar">
+        <input type="text" placeholder="Search sales orders...">
+        <select><option>All Status</option><option>Draft</option><option>Pending</option><option>Processing</option><option>Delivered</option><option>Completed</option></select>
+        <div style="margin-left:auto" class="btn-group">
+          <button class="btn btn-primary" onclick="toast('Sales order form opening','info')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Sales Order
+          </button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>SO Number</th><th>Customer</th><th>Items</th><th>Total</th><th>Order Date</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td class="text-accent"><strong>SO-2847</strong></td><td>Juan Dela Cruz</td><td>3 items</td><td>₱12,400</td><td>Jun 10, 2026</td><td><span class="badge warning">Pending</span></td><td><div class="btn-group"><button class="btn btn-primary btn-xs">Process</button><button class="btn btn-ghost btn-xs">View</button></div></td></tr>
+              <tr><td class="text-accent"><strong>SO-2846</strong></td><td>Maria Lim</td><td>1 item</td><td>₱4,000</td><td>Jun 10, 2026</td><td><span class="badge info">Processing</span></td><td><div class="btn-group"><button class="btn btn-ghost btn-xs">View</button><button class="btn btn-secondary btn-xs">Invoice</button></div></td></tr>
+              <tr><td class="text-accent"><strong>SO-2845</strong></td><td>Roberto Santos</td><td>5 items</td><td>₱28,750</td><td>Jun 9, 2026</td><td><span class="badge accent">Delivered</span></td><td><div class="btn-group"><button class="btn btn-success btn-xs">Complete</button><button class="btn btn-ghost btn-xs">View</button></div></td></tr>
+              <tr><td class="text-accent"><strong>SO-2844</strong></td><td>Ana Gonzales</td><td>2 items</td><td>₱6,200</td><td>Jun 9, 2026</td><td><span class="badge success">Completed</span></td><td><div class="btn-group"><button class="btn btn-ghost btn-xs">Receipt</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUPPLIERS PAGE -->
+    <div class="page" id="page-suppliers">
+      <div class="filter-bar">
+        <input type="text" placeholder="Search suppliers...">
+        <div style="margin-left:auto" class="btn-group">
+          <button class="btn btn-primary" onclick="toast('Supplier form opening','info')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Supplier
+          </button>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div class="card" id="supplier-list-card">
+          <div class="section-title" style="margin-bottom:16px">All Suppliers <span style="font-size:13px;color:var(--text-muted);font-weight:400">(38 active)</span></div>
+          <div id="supplier-list" style="display:flex;flex-direction:column;gap:8px"></div>
+        </div>
+        <div class="card" id="supplier-detail">
+          <div style="padding:40px;text-align:center;color:var(--text-muted)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:40px;height:40px;margin-bottom:10px;opacity:0.4"><rect x="1" y="3" width="15" height="13"/><polygon points="16,8 20,8 23,11 23,16 16,16 16,8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <p>Select a supplier to view details</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CUSTOMERS PAGE -->
+    <div class="page" id="page-customers">
+      <div class="filter-bar">
+        <input type="text" placeholder="Search customers...">
+        <div style="margin-left:auto" class="btn-group">
+          <button class="btn btn-primary" onclick="toast('Customer form opening','info')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Customer
+          </button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Customer</th><th>Email</th><th>Phone</th><th>Total Orders</th><th>Total Spent</th><th>Balance</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><div class="flex-center gap-8"><div class="avatar" style="background:#3498db">JD</div><div><div style="font-weight:500">Juan Dela Cruz</div><div style="font-size:11px;color:var(--text-muted)">Since Jan 2025</div></div></div></td><td class="text-muted">juan@email.com</td><td class="text-muted">+63 912 345 6789</td><td>14</td><td style="color:var(--success)">₱87,400</td><td style="color:var(--success)">₱0</td><td><span class="badge success">Active</span></td><td><button class="btn btn-ghost btn-xs">View</button></td></tr>
+              <tr><td><div class="flex-center gap-8"><div class="avatar" style="background:#9b59b6">ML</div><div><div style="font-weight:500">Maria Lim</div><div style="font-size:11px;color:var(--text-muted)">Since Mar 2025</div></div></div></td><td class="text-muted">maria@email.com</td><td class="text-muted">+63 917 654 3210</td><td>8</td><td style="color:var(--success)">₱34,200</td><td style="color:var(--danger)">₱4,000</td><td><span class="badge success">Active</span></td><td><button class="btn btn-ghost btn-xs">View</button></td></tr>
+              <tr><td><div class="flex-center gap-8"><div class="avatar" style="background:#27ae60">RS</div><div><div style="font-weight:500">Roberto Santos</div><div style="font-size:11px;color:var(--text-muted)">Since Jun 2024</div></div></div></td><td class="text-muted">roberto@biz.com</td><td class="text-muted">+63 918 111 2222</td><td>22</td><td style="color:var(--success)">₱164,500</td><td style="color:var(--success)">₱0</td><td><span class="badge success">Active</span></td><td><button class="btn btn-ghost btn-xs">View</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPORTS PAGE -->
+    <div class="page" id="page-reports">
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab(this,'tab-inventory-report')">Inventory</button>
+        <button class="tab" onclick="switchTab(this,'tab-sales-report')">Sales</button>
+        <button class="tab" onclick="switchTab(this,'tab-purchase-report')">Purchases</button>
+        <button class="tab" onclick="switchTab(this,'tab-financial-report')">Financial</button>
+      </div>
+      <div id="tab-inventory-report">
+        <div class="filter-bar">
+          <input type="date" value="2026-06-01">
+          <span style="color:var(--text-muted)">to</span>
+          <input type="date" value="2026-06-10">
+          <button class="btn btn-secondary btn-sm">Generate</button>
+          <div style="margin-left:auto" class="btn-group">
+            <button class="btn btn-ghost btn-sm" onclick="toast('Exporting PDF...','info')">PDF</button>
+            <button class="btn btn-ghost btn-sm" onclick="toast('Exporting Excel...','info')">Excel</button>
+            <button class="btn btn-ghost btn-sm" onclick="toast('Exporting CSV...','info')">CSV</button>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <div class="section-title" style="margin-bottom:16px">Inventory Value by Category</div>
+            <div class="chart-wrap">
+              <canvas id="catChart" role="img" aria-label="Bar chart of inventory value by product category">Category inventory values shown.</canvas>
+            </div>
+          </div>
+          <div class="card">
+            <div class="section-title" style="margin-bottom:16px">Stock Movement (Last 30 Days)</div>
+            <div class="chart-wrap">
+              <canvas id="movChart" role="img" aria-label="Line chart of stock in vs stock out over 30 days">Stock movement shown.</canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab-sales-report" style="display:none">
+        <div class="card"><div class="section-title" style="margin-bottom:16px">Sales Summary</div><div class="chart-wrap tall"><canvas id="salesReportChart" role="img" aria-label="Monthly sales report chart">Sales report</canvas></div></div>
+      </div>
+      <div id="tab-purchase-report" style="display:none">
+        <div class="card"><div class="section-title" style="margin-bottom:16px">Purchase Summary</div><div class="chart-wrap tall"><canvas id="purchReportChart" role="img" aria-label="Purchase report chart">Purchase report</canvas></div></div>
+      </div>
+      <div id="tab-financial-report" style="display:none">
+        <div class="grid-2">
+          <div class="card"><div class="section-title" style="margin-bottom:16px">Revenue vs Expenses</div><div class="chart-wrap tall"><canvas id="finReportChart" role="img" aria-label="Revenue vs expenses chart">Financial report</canvas></div></div>
+          <div class="card">
+            <div class="section-title" style="margin-bottom:16px">Financial Summary</div>
+            <div style="display:flex;flex-direction:column;gap:12px;font-size:14px">
+              <div class="flex-between"><span class="text-muted">Monthly Revenue</span><span style="color:var(--success);font-weight:600">₱486,000</span></div>
+              <div class="flex-between"><span class="text-muted">Monthly Expenses</span><span style="color:var(--danger);font-weight:600">₱312,000</span></div>
+              <hr class="divider">
+              <div class="flex-between"><span style="font-weight:600">Net Profit</span><span style="color:var(--success);font-weight:700;font-size:18px">₱174,000</span></div>
+              <div class="flex-between"><span class="text-muted">Profit Margin</span><span style="color:var(--success)">35.8%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUDIT TRAIL PAGE -->
+    <div class="page" id="page-audit">
+      <div class="filter-bar">
+        <input type="text" placeholder="Search activity logs...">
+        <select><option>All Actions</option><option>Product Updates</option><option>Stock Changes</option><option>User Login</option><option>Purchase</option><option>Sales</option></select>
+        <input type="date" value="2026-06-10">
+        <button class="btn btn-ghost btn-sm" onclick="toast('Exporting audit log...','info')">Export CSV</button>
+      </div>
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Timestamp</th><th>User</th><th>Action</th><th>Module</th><th>Details</th><th>IP Address</th></tr></thead>
+            <tbody>
+              <tr><td class="text-muted">Jun 10, 2026 14:32:01</td><td><div class="flex-center gap-8"><div class="avatar" style="width:24px;height:24px;font-size:10px">MS</div>Maria Santos</div></td><td><span class="badge success">Stock Added</span></td><td>Inventory</td><td>Added 200 units — Samsung Galaxy A55</td><td class="text-muted">192.168.1.101</td></tr>
+              <tr><td class="text-muted">Jun 10, 2026 14:15:44</td><td><div class="flex-center gap-8"><div class="avatar" style="width:24px;height:24px;font-size:10px;background:#3498db">CR</div>Carlo Reyes</div></td><td><span class="badge info">Order Created</span></td><td>Sales</td><td>Created SO-2847 for Juan Dela Cruz</td><td class="text-muted">192.168.1.103</td></tr>
+              <tr><td class="text-muted">Jun 10, 2026 13:50:22</td><td><div class="flex-center gap-8"><div class="avatar" style="width:24px;height:24px;font-size:10px;background:#2c3e50">SA</div>Super Admin</div></td><td><span class="badge accent">PO Approved</span></td><td>Purchases</td><td>Approved PO-1093 — ₱128,500</td><td class="text-muted">192.168.1.100</td></tr>
+              <tr><td class="text-muted">Jun 10, 2026 09:12:09</td><td><div class="flex-center gap-8"><div class="avatar" style="width:24px;height:24px;font-size:10px;background:#27ae60">JR</div>Jose Reyes</div></td><td><span class="badge warning">Product Updated</span></td><td>Inventory</td><td>Updated price: USB-C Hub Pro — ₱1,500 → ₱1,800</td><td class="text-muted">192.168.1.105</td></tr>
+              <tr><td class="text-muted">Jun 10, 2026 08:00:01</td><td><div class="flex-center gap-8"><div class="avatar" style="width:24px;height:24px;font-size:10px;background:#8e44ad">BA</div>Ben Admin</div></td><td><span class="badge neutral">Login</span></td><td>System</td><td>Successful login from web browser</td><td class="text-muted">192.168.1.108</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- USERS PAGE -->
+    <div class="page" id="page-users">
+      <div class="grid-2-1">
+        <div class="card">
+          <div class="section-header">
+            <div class="section-title">System Users</div>
+            <button class="btn btn-primary btn-sm" onclick="toast('User creation form opening','info')">Add User</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>User</th><th>Role</th><th>Last Login</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody>
+                <tr><td><div class="flex-center gap-8"><div class="avatar">SA</div><div><div style="font-weight:500">Super Admin</div><div style="font-size:11px;color:var(--text-muted)">admin@ims.com</div></div></div></td><td><span class="badge accent">Super Admin</span></td><td class="text-muted">Just now</td><td><span class="badge success">Active</span></td><td><button class="btn btn-ghost btn-xs">Edit</button></td></tr>
+                <tr><td><div class="flex-center gap-8"><div class="avatar" style="background:#3498db">MS</div><div><div style="font-weight:500">Maria Santos</div><div style="font-size:11px;color:var(--text-muted)">maria@ims.com</div></div></div></td><td><span class="badge info">Inventory Manager</span></td><td class="text-muted">14 min ago</td><td><span class="badge success">Active</span></td><td><button class="btn btn-ghost btn-xs">Edit</button></td></tr>
+                <tr><td><div class="flex-center gap-8"><div class="avatar" style="background:#27ae60">CR</div><div><div style="font-weight:500">Carlo Reyes</div><div style="font-size:11px;color:var(--text-muted)">carlo@ims.com</div></div></div></td><td><span class="badge success">Sales Staff</span></td><td class="text-muted">34 min ago</td><td><span class="badge success">Active</span></td><td><button class="btn btn-ghost btn-xs">Edit</button></td></tr>
+                <tr><td><div class="flex-center gap-8"><div class="avatar" style="background:#9b59b6">JR</div><div><div style="font-weight:500">Jose Reyes</div><div style="font-size:11px;color:var(--text-muted)">jose@ims.com</div></div></div></td><td><span class="badge neutral">Warehouse Staff</span></td><td class="text-muted">2 hrs ago</td><td><span class="badge success">Active</span></td><td><button class="btn btn-ghost btn-xs">Edit</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="section-title" style="margin-bottom:16px">Roles & Permissions</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="padding:10px;background:var(--bg-surface);border-radius:8px"><div style="font-size:13px;font-weight:600;color:var(--accent)">Super Admin</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px">Full system access</div></div>
+            <div style="padding:10px;background:var(--bg-surface);border-radius:8px"><div style="font-size:13px;font-weight:600">Admin</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px">All modules, no system config</div></div>
+            <div style="padding:10px;background:var(--bg-surface);border-radius:8px"><div style="font-size:13px;font-weight:600">Inventory Manager</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px">Products, stock, warehouses</div></div>
+            <div style="padding:10px;background:var(--bg-surface);border-radius:8px"><div style="font-size:13px;font-weight:600">Sales Staff</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px">Sales orders, customers</div></div>
+            <div style="padding:10px;background:var(--bg-surface);border-radius:8px"><div style="font-size:13px;font-weight:600">Warehouse Staff</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px">Receive, adjust, transfer</div></div>
+            <div style="padding:10px;background:var(--bg-surface);border-radius:8px"><div style="font-size:13px;font-weight:600">Viewer</div><div style="font-size:12px;color:var(--text-muted);margin-top:3px">Read-only access</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS PAGE -->
+    <div class="page" id="page-settings">
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab(this,'stab-company')">Company</button>
+        <button class="tab" onclick="switchTab(this,'stab-currency')">Currency & Tax</button>
+        <button class="tab" onclick="switchTab(this,'stab-notifications')">Notifications</button>
+        <button class="tab" onclick="switchTab(this,'stab-security')">Security</button>
+      </div>
+      <div id="stab-company">
+        <div class="card" style="max-width:640px">
+          <div class="section-title" style="margin-bottom:20px">Company Profile</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Company Name</label><input type="text" value="IMS Enterprise Corp."></div>
+            <div class="form-group"><label>Business Type</label><select><option>Retail</option><option>Wholesale</option><option>Distribution</option></select></div>
+            <div class="form-group"><label>Email</label><input type="email" value="admin@imsent.com"></div>
+            <div class="form-group"><label>Phone</label><input type="text" value="+63 2 8123 4567"></div>
+            <div class="form-group form-full"><label>Address</label><input type="text" value="123 Business Ave, Quezon City, Metro Manila"></div>
+          </div>
+          <div style="margin-top:20px;text-align:right"><button class="btn btn-primary" onclick="toast('Company settings saved','success')">Save Changes</button></div>
+        </div>
+      </div>
+      <div id="stab-currency" style="display:none">
+        <div class="card" style="max-width:480px">
+          <div class="section-title" style="margin-bottom:20px">Currency & Tax Settings</div>
+          <div class="form-grid">
+            <div class="form-group"><label>Currency</label><select><option>PHP — Philippine Peso</option><option>USD — US Dollar</option></select></div>
+            <div class="form-group"><label>Currency Symbol</label><input type="text" value="₱"></div>
+            <div class="form-group"><label>VAT Rate (%)</label><input type="number" value="12"></div>
+            <div class="form-group"><label>Inventory Valuation</label><select><option>FIFO</option><option>LIFO</option><option>Weighted Average</option></select></div>
+          </div>
+          <div style="margin-top:20px;text-align:right"><button class="btn btn-primary" onclick="toast('Currency settings saved','success')">Save Changes</button></div>
+        </div>
+      </div>
+      <div id="stab-notifications" style="display:none">
+        <div class="card" style="max-width:480px">
+          <div class="section-title" style="margin-bottom:20px">Notification Preferences</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="flex-between"><div><div style="font-size:14px;font-weight:500">Low Stock Alerts</div><div style="font-size:12px;color:var(--text-muted)">Notify when stock falls below reorder point</div></div><label style="position:relative;display:inline-block;width:44px;height:24px"><input type="checkbox" checked style="width:16px;height:16px"><span style="font-size:12px;color:var(--success)">On</span></label></div>
+            <div class="flex-between"><div><div style="font-size:14px;font-weight:500">New Purchase Orders</div><div style="font-size:12px;color:var(--text-muted)">Notify on new PO requiring approval</div></div><label><input type="checkbox" checked style="width:16px;height:16px"><span style="font-size:12px;color:var(--success);margin-left:6px">On</span></label></div>
+            <div class="flex-between"><div><div style="font-size:14px;font-weight:500">New Sales Orders</div><div style="font-size:12px;color:var(--text-muted)">Notify on new customer orders</div></div><label><input type="checkbox" checked style="width:16px;height:16px"><span style="font-size:12px;color:var(--success);margin-left:6px">On</span></label></div>
+            <div class="flex-between"><div><div style="font-size:14px;font-weight:500">Email Notifications</div><div style="font-size:12px;color:var(--text-muted)">Send alerts to registered email</div></div><label><input type="checkbox" style="width:16px;height:16px"><span style="font-size:12px;color:var(--text-muted);margin-left:6px">Off</span></label></div>
+          </div>
+          <div style="margin-top:20px;text-align:right"><button class="btn btn-primary" onclick="toast('Notification settings saved','success')">Save Changes</button></div>
+        </div>
+      </div>
+      <div id="stab-security" style="display:none">
+        <div class="card" style="max-width:480px">
+          <div class="section-title" style="margin-bottom:20px">Security Settings</div>
+          <div class="form-grid">
+            <div class="form-group form-full"><label>Current Password</label><input type="password" placeholder="Enter current password"></div>
+            <div class="form-group"><label>New Password</label><input type="password" placeholder="New password"></div>
+            <div class="form-group"><label>Confirm Password</label><input type="password" placeholder="Confirm password"></div>
+          </div>
+          <hr class="divider">
+          <div class="flex-between" style="margin-bottom:12px"><div><div style="font-size:14px;font-weight:500">Two-Factor Authentication</div><div style="font-size:12px;color:var(--text-muted)">Add extra security to your account</div></div><button class="btn btn-secondary btn-sm">Enable 2FA</button></div>
+          <div style="margin-top:12px;text-align:right"><button class="btn btn-primary" onclick="toast('Password updated successfully','success')">Update Password</button></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- NOTIFICATION PANEL -->
+<div id="notif-panel">
+  <div class="notif-header">
+    <span style="font-weight:600">Notifications</span>
+    <div class="btn-group">
+      <button class="btn btn-ghost btn-xs">Mark all read</button>
+      <button class="btn btn-ghost btn-xs" id="close-notif">✕</button>
+    </div>
+  </div>
+  <div class="notif-list">
+    <div class="notif-item unread"><div class="notif-icon danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></div><div><div class="notif-text"><strong>Out of Stock:</strong> Laptop Stand LS-Pro is now 0 units</div><div class="notif-time">2 min ago</div></div></div>
+    <div class="notif-item unread"><div class="notif-icon warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg></div><div><div class="notif-text"><strong>Low Stock:</strong> Wireless Earbuds X3 — only 8 units left</div><div class="notif-time">18 min ago</div></div></div>
+    <div class="notif-item unread"><div class="notif-icon info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/></svg></div><div><div class="notif-text"><strong>PO Approval Needed:</strong> PO-1092 from AudioTech PH — ₱34,000</div><div class="notif-time">1 hr ago</div></div></div>
+    <div class="notif-item"><div class="notif-icon success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div><div class="notif-text"><strong>Delivery Confirmed:</strong> PO-1091 arrived at Main Warehouse</div><div class="notif-time">3 hrs ago</div></div></div>
+    <div class="notif-item"><div class="notif-icon info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><div><div class="notif-text"><strong>New Sales Order:</strong> SO-2847 from Juan Dela Cruz — ₱12,400</div><div class="notif-time">Yesterday</div></div></div>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="product-modal">
+  <div class="modal-box wide">
+    <div class="modal-header">
+      <span class="modal-title" id="product-modal-title">Add New Product</span>
+      <button class="modal-close" onclick="closeModal('product-modal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group form-full"><label>Product Name</label><input type="text" id="pm-name" placeholder="e.g. Samsung Galaxy A55"></div>
+        <div class="form-group"><label>SKU</label><input type="text" id="pm-sku" placeholder="e.g. SKU-0001"></div>
+        <div class="form-group"><label>Category</label><select id="pm-cat"><option>Electronics</option><option>Peripherals</option><option>Accessories</option><option>Office Supplies</option></select></div>
+        <div class="form-group"><label>Unit Price (₱)</label><input type="number" id="pm-price" placeholder="0.00" step="0.01"></div>
+        <div class="form-group"><label>Initial Stock</label><input type="number" id="pm-stock" placeholder="0"></div>
+        <div class="form-group"><label>Reorder Point</label><input type="number" id="pm-reorder" placeholder="10"></div>
+        <div class="form-group"><label>Warehouse</label><select id="pm-warehouse"><option>Main Warehouse</option><option>Cebu Branch</option><option>Davao Hub</option></select></div>
+        <div class="form-group"><label>Supplier</label><select id="pm-supplier"><option>Tech Distributors PH</option><option>AudioTech PH</option><option>CablePro Inc</option><option>DeskPro Co.</option></select></div>
+        <div class="form-group form-full"><label>Description</label><textarea id="pm-desc" placeholder="Product description..."></textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('product-modal')">Cancel</button>
+      <button class="btn btn-primary" onclick="saveProduct()">Save Product</button>
+    </div>
+  </div>
+</div>
+
+<!-- PURCHASE ORDER MODAL -->
+<div class="modal-overlay" id="po-modal">
+  <div class="modal-box wide">
+    <div class="modal-header">
+      <span class="modal-title">New Purchase Order</span>
+      <button class="modal-close" onclick="closeModal('po-modal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Supplier</label><select><option>Tech Distributors PH</option><option>AudioTech PH</option><option>CablePro Inc</option></select></div>
+        <div class="form-group"><label>Expected Delivery</label><input type="date"></div>
+        <div class="form-group"><label>Warehouse</label><select><option>Main Warehouse</option><option>Cebu Branch</option><option>Davao Hub</option></select></div>
+        <div class="form-group"><label>Priority</label><select><option>Normal</option><option>Urgent</option><option>Low</option></select></div>
+      </div>
+      <div style="margin-top:16px">
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px">Order Items</div>
+        <table style="font-size:13px">
+          <thead><tr><th>Product</th><th>Qty</th><th>Unit Cost</th><th>Total</th><th></th></tr></thead>
+          <tbody id="po-items">
+            <tr><td><input type="text" placeholder="Product name" style="background:var(--bg-input);border:1px solid var(--border);border-radius:6px;padding:6px 10px;color:var(--text-primary);font-size:13px;width:100%"></td><td><input type="number" placeholder="0" style="background:var(--bg-input);border:1px solid var(--border);border-radius:6px;padding:6px 10px;color:var(--text-primary);font-size:13px;width:80px"></td><td><input type="number" placeholder="0.00" style="background:var(--bg-input);border:1px solid var(--border);border-radius:6px;padding:6px 10px;color:var(--text-primary);font-size:13px;width:100px"></td><td style="color:var(--success)">₱0</td><td><button onclick="this.closest('tr').remove()" style="background:none;border:none;color:var(--danger);cursor:pointer;font-size:18px">×</button></td></tr>
+          </tbody>
+        </table>
+        <button class="btn btn-ghost btn-sm mt-16" onclick="addPOItem()">+ Add Item</button>
+      </div>
+      <div class="form-group mt-16"><label>Notes</label><textarea placeholder="Internal notes..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('po-modal')">Cancel</button>
+      <button class="btn btn-secondary" onclick="toast('Saved as draft','info');closeModal('po-modal')">Save as Draft</button>
+      <button class="btn btn-primary" onclick="toast('Purchase order submitted for approval','success');closeModal('po-modal')">Submit for Approval</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-container"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
