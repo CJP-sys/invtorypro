@@ -7,7 +7,9 @@ export const ADMIN_EMAIL = 'chrisdiorsystem@gmail.com';
 export async function getAccessContext() {
   await auth.authStateReady();
   const user = auth.currentUser;
-  if (!user) return { user: null, role: 'guest', isAdmin: false };
+  if (!user || sessionStorage.getItem('inventory-pro-explicit-login') !== 'true') {
+    return { user: null, role: 'guest', isAdmin: false };
+  }
   const isAdmin = (user.email || '').toLowerCase() === ADMIN_EMAIL;
   return { user, role: isAdmin ? 'admin' : 'viewer', isAdmin };
 }

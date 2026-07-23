@@ -198,6 +198,9 @@ body {
   color: var(--text-muted);
   transition: all 0.2s;
 }
+.role-badge{font-family:inherit;cursor:pointer}
+.mode-note{font-size:12px;line-height:1.5;color:var(--text-muted);margin:-6px 0 18px;text-align:center}
+[hidden]{display:none!important}
 .role-badge:hover {
   border-color: var(--accent);
   color: var(--text-primary);
@@ -360,6 +363,10 @@ body {
 .btn-google{width:100%;min-height:48px;border:1px solid var(--border);border-radius:10px;background:var(--bg-surface);color:var(--text-primary);display:flex;align-items:center;justify-content:center;gap:12px;font:inherit;font-size:14px;font-weight:650;cursor:pointer;transition:border-color .2s,transform .2s,background .2s;margin-bottom:18px}
 .btn-google:hover{border-color:var(--accent);background:var(--bg-card);transform:translateY(-1px)}
 .btn-google:disabled{opacity:.6;cursor:wait;transform:none}.btn-google svg{width:21px;height:21px;flex:0 0 auto}
+#viewer-login-panel .divider{margin:18px 0}
+#viewer-login-panel .form-group{margin-bottom:14px}
+#viewer-login-panel .form-extras{margin-bottom:18px}
+#viewer-login-panel .mode-note{margin:12px 0 18px}
 
 /* Divider */
 .divider {
@@ -446,4 +453,23 @@ body {
   body { grid-template-columns: 1fr; }
   .brand-panel { display: none; } /* hide branding on small screens */
   .form-panel { padding: 40px 24px; }
+}
+@media (max-width: 1024px) and (min-width: 769px) {
+  body { grid-template-columns: minmax(300px, .8fr) minmax(440px, 1.2fr); }
+  .brand-panel { padding: 34px; }
+  .brand-hero h1 { font-size: 30px; }
+  .form-panel { padding: 36px 28px; overflow-y:auto; }
+}
+@media (max-width: 480px) {
+  .form-panel { padding: 24px 16px; align-items:flex-start; }
+  .login-card { max-width:none; }
+  .login-card h2 { font-size:23px; }
+  .login-card .subtitle { margin-bottom:22px; line-height:1.5; }
+  .role-select { flex-direction:column; }
+  .role-badge { width:100%; text-align:center; }
+  #toast { left:12px; right:12px; width:auto; }
+}
+@media (max-height: 720px) {
+  .form-panel { align-items:flex-start; overflow-y:auto; padding-top:24px; padding-bottom:24px; }
+  .login-card .subtitle { margin-bottom:20px; }
 }

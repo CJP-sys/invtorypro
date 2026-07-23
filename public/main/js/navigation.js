@@ -67,7 +67,7 @@ export function navigate(page) {
   if (page === 'reports') {
     import('./charts.js').then(m => setTimeout(m.initReportCharts, 100));
   }
-  if (matchMedia('(max-width:600px)').matches) {
+  if (matchMedia('(max-width:820px)').matches) {
     document.getElementById('sidebar')?.classList.remove('mobile-open');
   }
 }
@@ -86,7 +86,7 @@ document.querySelectorAll('.stat-card[data-page]').forEach(el =>
 /* ─── SIDEBAR COLLAPSE ───────────────────────────────── */
 document.getElementById('toggle-sidebar')?.addEventListener('click', () => {
   const sidebar = document.getElementById('sidebar');
-  if (matchMedia('(max-width:600px)').matches) sidebar?.classList.toggle('mobile-open');
+  if (matchMedia('(max-width:820px)').matches) sidebar?.classList.toggle('mobile-open');
   else sidebar?.classList.toggle('collapsed');
 });
 document.getElementById('sidebar-backdrop')?.addEventListener('click', () =>

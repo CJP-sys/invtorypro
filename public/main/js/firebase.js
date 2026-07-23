@@ -28,6 +28,8 @@ export const db   = getFirestore(app);
 
 export async function requireUser() {
   await auth.authStateReady();
-  if (!auth.currentUser) throw new Error('You must be signed in.');
+  if (!auth.currentUser || sessionStorage.getItem('inventory-pro-explicit-login') !== 'true') {
+    throw new Error('You must sign in for this browser session.');
+  }
   return auth.currentUser;
 }

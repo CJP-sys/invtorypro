@@ -219,7 +219,7 @@ window.editProduct = editProduct;
 
 export function openProductModal(editId = null) {
   if (document.body.dataset.access === 'viewer') {
-    toast('Add Product is coming soon in Demo Mode', 'info');
+    toast('Administrator access is required to add products. Select Request Admin Access.', 'info');
     return;
   }
   if (editId) { editProduct(editId); return; }

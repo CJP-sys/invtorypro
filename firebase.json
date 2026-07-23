@@ -7,7 +7,7 @@
     "providers": {
       "emailPassword": true,
       "googleSignIn": {
-        "oAuthBrandDisplayName": "Inventory Pro",
+        "oAuthBrandDisplayName": "IMS",
         "supportEmail": "chrisdiorsystem@gmail.com",
         "authorizedRedirectUris": [
           "https://inventory-00.web.app",

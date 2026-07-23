@@ -6,7 +6,7 @@
 <script>document.documentElement.dataset.theme=localStorage.getItem('inventory-pro-theme')||((matchMedia('(prefers-color-scheme:dark)').matches)?'dark':'light');</script>
 <title>IMS — Sign In</title>
 <link rel ="icon" type="svg" href="main/svg/cj-svg.svg">
-<link rel="stylesheet" href="login.css?v=20260717-2">
+<link rel="stylesheet" href="login.css?v=20260723-1">
 </head>
 <body>
 <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle color theme">
@@ -64,19 +64,68 @@
 
     <!-- Header -->
     <h2>Welcome back</h2>
-    <p class="subtitle">Sign in to your account to continue</p>
+    <p class="subtitle">Sign in with Google or an existing email and password. Administrator access is assigned automatically.</p>
 
     <!-- Role selector — purely UI, no backend yet -->
-    <div class="role-select" aria-label="Account access information">
-      <span class="role-badge active">Admin · live backend</span>
-      <span class="role-badge">Viewer · read-only demo</span>
+    <div class="role-select" role="tablist" aria-label="Choose sign-in type">
+      <button type="button" class="role-badge active" role="tab" aria-selected="true" data-login-mode="viewer" onclick="setLoginMode('viewer')">Viewer Sign In</button>
+      <button type="button" class="role-badge" role="tab" aria-selected="false" data-login-mode="admin" onclick="setLoginMode('admin')">Admin · Password</button>
     </div>
 
+    <div id="viewer-login-panel">
     <button type="button" class="btn-google" id="google-login-btn" onclick="handleGoogleLogin()">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.4a4.6 4.6 0 0 1-2 3v2.5h3.3c1.9-1.8 2.9-4.4 2.9-7.4z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.7-2.4l-3.3-2.5c-.9.6-2.1 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3v2.6A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.4 14a6 6 0 0 1 0-3.9V7.4H3A10 10 0 0 0 3 16.6L6.4 14z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.9-2.9A9.7 9.7 0 0 0 3 7.4l3.4 2.7C7.2 7.7 9.4 5.9 12 5.9z"/></svg>
       <span>Continue with Google</span>
     </button>
+    <div class="divider">or use email and password</div>
+    <form id="viewer-login-form" onsubmit="handleViewerLogin(event)" novalidate>
+      <div class="form-group">
+        <label for="viewer-email">Email Address</label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <input type="email" id="viewer-email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="viewer-password">Password</label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <input type="password" id="viewer-password" placeholder="Enter your password" autocomplete="current-password" required>
+          <button type="button" class="pw-toggle" id="viewer-password-toggle" onclick="toggleViewerPassword()" title="Show password" aria-label="Show password" aria-pressed="false">
+            <svg id="viewer-eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="form-extras">
+        <span></span>
+        <a href="#" class="forgot-link" onclick="showViewerForgot(event)">Set / forgot password</a>
+      </div>
+      <div class="error-msg" id="viewer-error-msg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span id="viewer-error-text">Invalid email or password. Please try again.</span>
+      </div>
+      <button type="submit" class="btn-login" id="viewer-login-btn">
+        <div class="spinner"></div>
+        <span class="btn-text">Sign In as Viewer</span>
+      </button>
+    </form>
+    <p class="mode-note">Viewer accounts receive read-only sample data and cannot change company records.</p>
+    </div>
 
+    <div id="admin-login-panel" hidden>
     <div class="divider">Administrator sign-in</div>
 
     <!-- Form -->
@@ -130,11 +179,8 @@
 
       <!-- Remember me + forgot -->
       <div class="form-extras">
-        <label class="checkbox-label">
-          <input type="checkbox" id="remember">
-          Remember me
-        </label>
-        <a href="#" class="forgot-link" onclick="showForgot(event)">Forgot password?</a>
+        <span></span>
+        <a href="#" class="forgot-link" onclick="showForgot(event)">Set / forgot password</a>
       </div>
 
       <!-- Error message — hidden by default, shown on bad credentials -->
@@ -154,6 +200,8 @@
       </button>
 
     </form>
+    <p class="mode-note">First time? Enter the approved email, then choose “Set / forgot password” to receive a secure setup link.</p>
+    </div>
 
     <div class="guest-row">
         Need administrator access? <a href="#" onclick="requestAccess(event)">Request access</a>
@@ -177,7 +225,7 @@
 </div>
 
 <script type="module" src="theme.js?v=20260717-2"></script>
-<script type="module" src="login.js?v=20260717-2"></script>
+<script type="module" src="login.js?v=20260723-1"></script>
 
 </body>
 </html>

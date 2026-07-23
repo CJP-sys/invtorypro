@@ -33,7 +33,7 @@ function renderDemoProducts() {
       <td><span class="badge info">${product.cat}</span></td><td>${product.stock}</td>
       <td>₱${product.price.toLocaleString()}</td><td class="text-muted">${product.warehouse}</td>
       <td><span class="badge ${badge}">${product.status}</span></td>
-      <td><button class="btn btn-ghost btn-xs" onclick="toast('Editing products is coming soon','info')">Coming Soon</button></td>
+      <td><button class="btn btn-ghost btn-xs" onclick="requestAdminAccess()">Request Admin Access</button></td>
     </tr>`;
   }).join('') : '<tr><td colspan="9" class="text-muted" style="text-align:center;padding:36px">No sample products match these filters.</td></tr>';
   const count = document.getElementById('products-count');
@@ -59,7 +59,7 @@ function wireDemoInteractions() {
     if (document.body.dataset.access !== 'viewer') return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    window.toast?.('Demo Mode is read-only. This action is available in the admin version.', 'info');
+    window.toast?.('Administrator access is required to save changes. Select Request Admin Access.', 'info');
   }, true);
 
   document.addEventListener('click', event => {
@@ -75,8 +75,24 @@ function wireDemoInteractions() {
     if (!blocked) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    window.toast?.('Preview complete — saving is available in Admin mode.', 'info');
+    window.toast?.('Administrator access is required for this action. Select Request Admin Access.', 'info');
   }, true);
+}
+
+/** Labels every protected control so clients understand why it is restricted. */
+function markAdminControls() {
+  const selectors = [
+    '#import-btn', '#export-btn',
+    'button[onclick*="openProductModal"]', 'button[onclick*="openWarehouseModal"]',
+    'button[onclick*="openPOModal"]', 'button[onclick*="openSalesOrderModal"]',
+    'button[onclick*="openSupplierModal"]', 'button[onclick*="openRecordModal"]',
+    'button[onclick*="submitPO"]', 'button[onclick*="saveProduct"]',
+    'button[onclick*="saveWarehouse"]', 'button[onclick*="createSalesOrder"]'
+  ];
+  document.querySelectorAll(selectors.join(',')).forEach(button => {
+    button.dataset.adminRequired = 'true';
+    button.title = 'Administrator access required';
+  });
 }
 
 /** Paints sample metrics and restricts the viewer to the dashboard. */
@@ -102,9 +118,10 @@ export function loadDemoDashboard() {
     </div></div>`).join('');
   const addProduct = document.querySelector('button[onclick="openProductModal()"]');
   if (addProduct) {
-    addProduct.title = 'Coming soon in Viewer mode';
-    addProduct.insertAdjacentHTML('beforeend', '<span class="badge neutral">Coming Soon</span>');
+    addProduct.title = 'Administrator access required';
+    addProduct.dataset.adminRequired = 'true';
   }
+  markAdminControls();
   wireDemoInteractions();
   const set = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value; };
   updateDashboardSummary(DEMO_PRODUCTS);

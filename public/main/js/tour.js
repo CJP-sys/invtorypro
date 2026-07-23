@@ -5,7 +5,7 @@ const steps = [
   { selector:'.nav-item[data-page="products"]', title:'Inventory control', text:'Search stock, monitor reorder levels, and manage the product catalog.' },
   { selector:'.nav-item[data-page="warehouses"]', title:'Multi-warehouse visibility', text:'Compare capacity, managers, and stock across every location.' },
   { selector:'.nav-item[data-page="reports"]', title:'Decision-ready reports', text:'Review operational and financial trends with interactive reports.' },
-  { selector:'#demo-mode-badge, #start-tour-btn', title:'Safe client demonstration', text:'Demo Mode uses realistic sample data while every business write remains protected.' }
+  { selector:'#demo-mode-badge, #start-tour-btn', title:'Clear access control', text:'Viewer accounts use realistic sample data while administrator-only business actions remain protected.' }
 ];
 
 let index = 0;
