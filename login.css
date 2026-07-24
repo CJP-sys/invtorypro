@@ -313,7 +313,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   letter-spacing: 0.3px;
 }
 .btn-login:hover { background: var(--accent-hover); }

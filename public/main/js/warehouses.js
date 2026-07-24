@@ -10,6 +10,7 @@ import { db, requireUser } from './firebase.js';
 import { esc, toast } from './utils.js';
 import { openModal, closeModal } from './navigation.js';
 import { getProducts } from './products.js';
+import { setWarehouseNotifications } from './notifications.js';
 import {
   collection, addDoc, getDocs, updateDoc, doc, query, where, orderBy,
   serverTimestamp
@@ -36,6 +37,7 @@ export async function loadWarehouses() {
       orderBy('name')
     ));
     warehouses = snapshot.docs.map(item => ({ id: item.id, ...item.data() }));
+    setWarehouseNotifications(warehouses);
     renderWarehouses();
     populateWarehouseSelects();
   } catch (error) {
@@ -56,6 +58,7 @@ function getWarehouseMetrics(name) {
 
 /** Renders every warehouse card from Firestore plus current inventory metrics. */
 export function renderWarehouses() {
+  setWarehouseNotifications(warehouses);
   const list = document.getElementById('warehouse-list');
   if (!list) return;
   if (!warehouses.length) {

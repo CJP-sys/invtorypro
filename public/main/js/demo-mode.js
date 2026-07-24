@@ -138,9 +138,11 @@ export function loadDemoDashboard() {
   if (activity) activity.innerHTML = '<div class="text-muted">Demo activity: 8 orders fulfilled, 3 purchase orders approved, and 2 stock alerts generated today.</div>';
   const notifications = document.getElementById('order-notification-list');
   if (notifications) notifications.innerHTML = `
-    <div class="notif-item unread"><div><div class="notif-text"><strong>Low stock:</strong> Wireless Earbuds X3 has 8 units remaining.</div><div class="notif-time">18 minutes ago</div></div></div>
-    <div class="notif-item unread"><div><div class="notif-text"><strong>Approval needed:</strong> Demo purchase order PO-1092.</div><div class="notif-time">1 hour ago</div></div></div>
-    <div class="notif-item"><div><div class="notif-text"><strong>Order fulfilled:</strong> Demo sales order SO-2847.</div><div class="notif-time">Yesterday</div></div></div>`;
+    <button class="notif-item unread" onclick="navigate('products')"><div class="notif-icon danger">OUT</div><div><div class="notif-text"><strong>Out of stock:</strong> Laptop Stand LS-Pro has no units remaining.</div><div class="notif-time">2 minutes ago</div></div></button>
+    <button class="notif-item unread" onclick="navigate('warehouses')"><div class="notif-icon danger">CAP</div><div><div class="notif-text"><strong>Warehouse over capacity:</strong> Manila Hub is at 108% capacity.</div><div class="notif-time">12 minutes ago</div></div></button>
+    <button class="notif-item unread" onclick="navigate('purchases')"><div class="notif-icon warning">LATE</div><div><div class="notif-text"><strong>Late purchase order:</strong> PO-1091 is 3 days overdue.</div><div class="notif-time">35 minutes ago</div></div></button>
+    <button class="notif-item unread" onclick="navigate('purchases')"><div class="notif-icon warning">PO</div><div><div class="notif-text"><strong>Approval needed:</strong> Purchase order PO-1092 is awaiting approval.</div><div class="notif-time">1 hour ago</div></div></button>
+    <button class="notif-item unread" onclick="navigate('sales')"><div class="notif-icon info">SO</div><div><div class="notif-text"><strong>New sales order:</strong> SO-2847 from Juan Dela Cruz.</div><div class="notif-time">2 hours ago</div></div></button>`;
   document.getElementById('notification-dot')?.removeAttribute('hidden');
   requestAnimationFrame(() => {
     if (window.__stockHealthChart) {

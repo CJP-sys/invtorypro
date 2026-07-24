@@ -1,33 +1,35 @@
 :root {
-  --bg-dark:#f4f1ef;
-  --bg-card:#fffaf7;
-  --bg-surface:#eee8e4;
-  --bg-input:#fffdfb;
-  --accent:#9f3030;
-  --accent-hover:#842626;
-  --accent-light:rgba(159,48,48,.11);
-  --text-primary:#312b2b;
-  --text-secondary:#625858;
-  --text-muted:#817575;
-  --border:rgba(75,55,55,.16);
-  --danger:#b84040;
-  --success:#39785a;
-  --shadow:rgba(56,38,38,.14);
+  --bg-dark:#f2f8fc;
+  --bg-card:#ffffff;
+  --bg-surface:#eaf4fa;
+  --bg-input:#f8fbfe;
+  --accent:#626ce8;
+  --accent-hover:#4f59d2;
+  --accent-cyan:#28bdc8;
+  --accent-light:rgba(98,108,232,.11);
+  --text-primary:#303b52;
+  --text-secondary:#526176;
+  --text-muted:#748399;
+  --border:rgba(67,94,128,.16);
+  --danger:#d45468;
+  --success:#269b83;
+  --shadow:rgba(60,92,130,.14);
 }
 :root[data-theme="dark"] {
-  --bg-dark:#191718;
-  --bg-card:#242122;
-  --bg-surface:#2e2a2b;
-  --bg-input:#1d1a1b;
-  --accent:#d16a6a;
-  --accent-hover:#e07a7a;
-  --accent-light:rgba(209,106,106,.14);
-  --text-primary:#eee8e6;
-  --text-secondary:#c2b8b5;
-  --text-muted:#9a8f8c;
-  --border:rgba(255,240,235,.11);
-  --danger:#e07a72;
-  --success:#70b68e;
+  --bg-dark:#0d1624;
+  --bg-card:#152235;
+  --bg-surface:#1c2c41;
+  --bg-input:#101c2b;
+  --accent:#8992ff;
+  --accent-hover:#9ca4ff;
+  --accent-cyan:#41d1d3;
+  --accent-light:rgba(137,146,255,.15);
+  --text-primary:#edf5ff;
+  --text-secondary:#bdcadb;
+  --text-muted:#8fa0b5;
+  --border:rgba(174,207,235,.13);
+  --danger:#ff8091;
+  --success:#56d3b4;
   --shadow:rgba(0,0,0,.34);
 }
 
@@ -68,14 +70,14 @@ body {
 .brand-panel::before {
   width: 480px;
   height: 480px;
-  background: radial-gradient(circle, rgba(170,0,0,0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(40,189,200,.24) 0%, transparent 70%);
   top: -120px;
   left: -120px;
 }
 .brand-panel::after {
   width: 360px;
   height: 360px;
-  background: radial-gradient(circle, rgba(170,0,0,0.10) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(98,108,232,.16) 0%, transparent 70%);
   bottom: -80px;
   right: -80px;
 }
@@ -91,7 +93,7 @@ body {
 .logo-box {
   width: 44px;
   height: 44px;
-  background: var(--accent);
+  background:linear-gradient(135deg,var(--accent),var(--accent-cyan));
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -101,7 +103,7 @@ body {
   color: #fff;
   letter-spacing: 0.5px;
   /* Subtle inner glow to match the red theme */
-  box-shadow: 0 0 24px rgba(170,0,0,0.5);
+  box-shadow:0 8px 26px rgba(98,108,232,.28);
 }
 .logo-text {
   font-size: 18px;
@@ -199,7 +201,7 @@ body {
   transition: all 0.2s;
 }
 .role-badge{font-family:inherit;cursor:pointer}
-.mode-note{font-size:12px;line-height:1.5;color:var(--text-muted);margin:-6px 0 18px;text-align:center}
+.mode-note{font-size:12px;line-height:1.5;color:var(--text-muted);margin:10px 0 18px;text-align:center}
 [hidden]{display:none!important}
 .role-badge:hover {
   border-color: var(--accent);
@@ -256,7 +258,7 @@ body {
 .form-group input::placeholder { color: var(--text-muted); }
 .form-group input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(170,0,0,0.15);
+  box-shadow:0 0 0 3px var(--accent-light);
 }
 /* Password toggle button */
 .pw-toggle {
@@ -324,7 +326,7 @@ body {
 .btn-login {
   width: 100%;
   padding: 14px;
-  background: var(--accent);
+  background:linear-gradient(110deg,var(--accent),var(--accent-cyan));
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -338,7 +340,7 @@ body {
   gap: 8px;
   letter-spacing: 0.3px;
 }
-.btn-login:hover { background: var(--accent-hover); }
+.btn-login:hover { background:linear-gradient(110deg,var(--accent-hover),var(--accent-cyan)); }
 .btn-login:active { transform: scale(0.99); }
 .btn-login:disabled {
   opacity: 0.6;

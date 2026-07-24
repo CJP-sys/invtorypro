@@ -73,7 +73,7 @@ import { applyBranding } from './js/branding.js';
 import { initProductTour } from './js/tour.js';
 
 // ── 9. Charts (dashboard boot deferred until after load)
-import { initCharts } from './js/charts.js';
+import { initCharts } from './js/charts.js?v=20260723-2';
 
 function clearLegacyDemoContent() {
   const emptyTables = [

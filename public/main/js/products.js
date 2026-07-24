@@ -21,6 +21,7 @@ import { db, requireUser }  from './firebase.js';
 import { esc, toast, formatCurrency, getProductStatus } from './utils.js';
 import { openModal, closeModal }                        from './navigation.js';
 import { confirmDialog, errorDialog }                   from './dialogs.js';
+import { setProductNotifications }                      from './notifications.js';
 import {
   collection, addDoc, getDocs, updateDoc, deleteDoc,
   doc, query, where, orderBy, serverTimestamp
@@ -75,7 +76,9 @@ function mapDoc(snap) {
     warehouse:   d.warehouse   || 'Main Warehouse',
     supplier:    d.supplier    || '',
     description: d.description || '',
-    status:      getProductStatus(stock)
+    status:      getProductStatus(stock),
+    createdAt:   d.createdAt,
+    updatedAt:   d.updatedAt
   };
 }
 
@@ -101,6 +104,7 @@ export async function loadProducts() {
       products.length ? 'warning' : 'error'
     );
   }
+  setProductNotifications(products);
 
   // Notify dashboard and charts (imported lazily to avoid circular deps)
   import('./dashboard.js').then(m => m.updateDashboardSummary(products));
@@ -184,6 +188,7 @@ async function saveProduct() {
     }
 
     saveCache(products);
+    setProductNotifications(products);
     import('./dashboard.js').then(m => m.updateDashboardSummary(products));
     import('./warehouses.js').then(m => m.renderWarehouses());
     currentPage = 1;
@@ -258,6 +263,7 @@ async function deleteProduct(id) {
     await deleteDoc(doc(db, 'products', id));
     products = products.filter(x => x.id !== id);
     saveCache(products);
+    setProductNotifications(products);
     import('./dashboard.js').then(m => m.updateDashboardSummary(products));
     import('./warehouses.js').then(m => m.renderWarehouses());
     const maxPage = Math.max(1, Math.ceil(getFiltered().length / PAGE_SIZE));

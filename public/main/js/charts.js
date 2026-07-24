@@ -57,8 +57,8 @@ export function initCharts() {
       data: {
         labels: sales.labels,
         datasets: [
-          { label: 'Revenue', data: sales.revenue, backgroundColor: 'rgba(170,0,0,.7)', yAxisID: 'y' },
-          { label: 'Orders', data: sales.orders, type: 'line', borderColor: '#3498db', yAxisID: 'y1' }
+          { label: 'Revenue', data: sales.revenue, backgroundColor: 'rgba(98,108,232,.72)', yAxisID: 'y' },
+          { label: 'Orders', data: sales.orders, type: 'line', borderColor: '#28bdc8', yAxisID: 'y1' }
         ]
       },
       options: { responsive: true, maintainAspectRatio: false }
@@ -71,7 +71,7 @@ export function initCharts() {
       type: 'doughnut',
       data: {
         labels: ['In Stock', 'Low Stock', 'Out of Stock'],
-        datasets: [{ data: [0, 0, 0], backgroundColor: ['#2ecc71', '#f39c12', '#e74c3c'], borderWidth: 0 }]
+        datasets: [{ data: [0, 0, 0], backgroundColor: ['#28bdc8', '#7c83ef', '#9bb7d2'], borderWidth: 0 }]
       },
       options: { responsive: true, maintainAspectRatio: false, cutout: '70%' }
     });
@@ -96,7 +96,7 @@ export function initReportCharts() {
       type: 'bar',
       data: {
         labels: [...totals.keys()],
-        datasets: [{ label: 'Inventory value', data: [...totals.values()], backgroundColor: 'rgba(170,0,0,.75)' }]
+        datasets: [{ label: 'Inventory value', data: [...totals.values()], backgroundColor: 'rgba(40,189,200,.75)' }]
       },
       options: { responsive: true, maintainAspectRatio: false }
     });
@@ -121,7 +121,7 @@ function initOrderReport(canvasId, label, values) {
   if (!el) return;
   new Chart(el, {
     type: 'bar',
-    data: { labels: values.labels, datasets: [{ label, data: values.revenue, backgroundColor: 'rgba(170,0,0,.7)' }] },
+    data: { labels: values.labels, datasets: [{ label, data: values.revenue, backgroundColor: 'rgba(98,108,232,.72)' }] },
     options: { responsive: true, maintainAspectRatio: false }
   });
 }
@@ -155,8 +155,8 @@ export function switchTab(btn, targetId) {
       new Chart(element, {
         type:'bar',
         data:{ labels, datasets:[
-          { label:'Revenue', data:labels.map(label => salesByMonth.get(label) || 0), backgroundColor:'rgba(57,120,90,.75)' },
-          { label:'Expenses', data:labels.map(label => purchasesByMonth.get(label) || 0), backgroundColor:'rgba(184,64,64,.72)' }
+          { label:'Revenue', data:labels.map(label => salesByMonth.get(label) || 0), backgroundColor:'rgba(40,189,200,.76)' },
+          { label:'Expenses', data:labels.map(label => purchasesByMonth.get(label) || 0), backgroundColor:'rgba(98,108,232,.70)' }
         ]},
         options:{ responsive:true, maintainAspectRatio:false }
       });
